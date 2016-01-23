@@ -47,7 +47,13 @@ namespace pluto_lzo
 
     public static void inflate(string filename)
     {
-      string o = filename.Replace(".lzo", string.Empty);
+      
+      var parentDir = Directory.GetParent(filename);
+      var outputDir =  Path.Combine(parentDir.FullName,"inflated");
+      Directory.CreateDirectory(outputDir);
+      var inputFile = new FileInfo(filename);
+      string outputFileName = inputFile.Name.Replace(".lzo", string.Empty);
+      var outputFile = Path.Combine(outputDir, outputFileName);
 
       byte[] input = File.ReadAllBytes(filename);
 
@@ -64,7 +70,7 @@ namespace pluto_lzo
       Buffer.BlockCopy(input, header, buffer, 0, buffer.Length);
 
       MiniLZO.Decompress(buffer, destination);
-      File.WriteAllBytes(o, destination);
+      File.WriteAllBytes(outputFile, destination);
     }
   }
 }
