@@ -1,11 +1,26 @@
 # pluto-lzo
-C# implementation to inflate lzo files found on the vera home controller
+C implementation to inflate lzo files found on the vera home controller.
 
-download https://github.com/bfocht/pluto-lzo/blob/master/win-release/pluto-lzo.exe?raw=true
+A C# managed version is available on the `manged-pluto-lzo` branch.
 
-1. Drag and drop lzo file onto `pluto-lzo.exe`  
-2. Application will create a `inflated` folder and inflate the files to this folder
-3. You can drag groups of files into this application and it will inflate them all.
+##Usage 
+```
+Usage: pluto-lzo {c|d} source_file dest_file
+       pluto-lzo compressed_file
+```
+
+##Build and install
+```
+make gcc
+chmod a+rx pluto-lzo
+mv pluto-lzo /usr/bin/pluto-lzo
+```
+
+### Attribution
+ * Markus Franz Xaver Johannes Oberhumer
+ * <markus@oberhumer.com>
+ * http://www.oberhumer.com/opensource/lzo/
+ * Version : 2.09
 
 
-
+Note: this project is in no way associated with any commercial product 
