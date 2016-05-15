@@ -9,7 +9,7 @@
 #define EXIT_FILE       2
 #define EXIT_MEM        3
 
-int header_size = 4;
+#define header_size  4
 
 /*************************************************************************
 //
@@ -107,7 +107,8 @@ int main(int argc, char *argv[])
   
 
   //write the file
-  unsigned char dst[dst_len];    
+  unsigned char *dst;
+  dst = malloc(sizeof(unsigned char) * (dst_len));
   lzo1x_decompress(source, src_len, dst, &dst_len, NULL);
   fp = fopen(dst_filename, "wb+");
   fwrite(dst, sizeof(unsigned char), dst_len, fp);
@@ -115,5 +116,6 @@ int main(int argc, char *argv[])
 
   free(source);
   free(dst_filename);
+  free(dst);
   return EXIT_OK;
 }
