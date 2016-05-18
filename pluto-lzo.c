@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
   {
     printf("Usage: pluto-lzo {c|d} source_file dest_file\n");
     printf("       pluto-lzo compressed_file\n");
+    printf("Note: compression currently not supported\n");
     return EXIT_USAGE;
   }
 
@@ -111,11 +112,20 @@ int main(int argc, char *argv[])
   dst = malloc(sizeof(unsigned char) * (dst_len));
   lzo1x_decompress(source, src_len, dst, &dst_len, NULL);
   fp = fopen(dst_filename, "wb+");
-  fwrite(dst, sizeof(unsigned char), dst_len, fp);
-  fclose(fp);
+  int exit_code;
+  if (fp != NULL) {
+	  fwrite(dst, sizeof(unsigned char), dst_len, fp);
+	  fclose(fp);
+	  exit_code = EXIT_OK;
+  }
+  else
+  {
+	  fputs("Error writing file\n", stderr);
+	  exit_code = EXIT_FILE;
+  }
 
   free(source);
   free(dst_filename);
   free(dst);
-  return EXIT_OK;
+  return exit_code;
 }
