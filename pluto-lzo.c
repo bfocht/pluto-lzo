@@ -125,7 +125,7 @@ int main(int argc, char *argv[])
   }
 
   free(source);
-  free(dst_filename);
+  if (argc == 4) free(dst_filename);
   free(dst);
   return exit_code;
 }
